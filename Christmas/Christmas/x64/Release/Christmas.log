@@ -1,4 +1,10 @@
-﻿  HellsHall.c
+﻿  Assembling HellsAsm.asm...
+  Common.c
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\Common.c(149,47): warning C4142: 'strrchr': benign redefinition of type
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vcruntime_string.h(76): message : see declaration of 'strrchr'
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\Common.c(151,9): warning C4163: 'strrchr': not available as an intrinsic function
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\Common.c(152,9): warning C4163: 'strrchr': not available as an intrinsic function
+  HellsHall.c
 D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\HellsHall.c(50,54): warning C4047: '==': 'ULONG_PTR' differs in levels of indirection from 'void *'
 D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\HellsHall.c(87,84): warning C4047: 'function': 'ULONG_PTR' differs in levels of indirection from 'HMODULE'
 D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\HellsHall.c(87,67): warning C4024: 'InitDllsConfigStructs': different types for formal and actual parameter 2
@@ -17,10 +23,9 @@ D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(127,14):
 D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(157,41): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
 D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(157,47): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
 D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(147,1): warning C4047: 'initializing': 'NTSTATUS' differs in levels of indirection from 'void *'
-D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(370,130): warning C4047: '=': 'ULONG_PTR' differs in levels of indirection from 'LPVOID'
-D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(398,41): warning C4022: 'VirtualProtectEx': pointer mismatch for actual parameter 2
-D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(435,43): warning C4022: 'WriteProcessMemory': pointer mismatch for actual parameter 2
-D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(477,57): warning C4022: 'WriteProcessMemory': pointer mismatch for actual parameter 2
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(373,158): warning C4047: '==': 'ULONG_PTR' differs in levels of indirection from 'void *'
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(449,43): warning C4022: 'WriteProcessMemory': pointer mismatch for actual parameter 2
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(491,57): warning C4022: 'WriteProcessMemory': pointer mismatch for actual parameter 2
 D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(319,1): warning C4047: 'initializing': 'ULONG_PTR' differs in levels of indirection from 'void *'
 D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(322,1): warning C4047: 'initializing': 'SIZE_T' differs in levels of indirection from 'void *'
   Generating Code...
