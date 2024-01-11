@@ -1,0 +1,28 @@
+﻿  HellsHall.c
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\HellsHall.c(50,54): warning C4047: '==': 'ULONG_PTR' differs in levels of indirection from 'void *'
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\HellsHall.c(87,84): warning C4047: 'function': 'ULONG_PTR' differs in levels of indirection from 'HMODULE'
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\HellsHall.c(87,67): warning C4024: 'InitDllsConfigStructs': different types for formal and actual parameter 2
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\HellsHall.c(147,1): warning C4244: 'initializing': conversion from 'WCHAR' to 'CHAR', possible loss of data
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\HellsHall.c(181,82): warning C4047: 'function': 'ULONG_PTR' differs in levels of indirection from 'HMODULE'
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\HellsHall.c(181,66): warning C4024: 'InitDllsConfigStructs': different types for formal and actual parameter 2
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\HellsHall.c(185,52): warning C4047: '==': 'DWORD' differs in levels of indirection from 'void *'
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\HellsHall.c(282,30): warning C4047: '==': 'DWORD' differs in levels of indirection from 'void *'
+  main.c
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(21,50): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(21,46): warning C4024: 'SHGetFolderPathW': different types for formal and actual parameter 4
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(49,51): warning C4090: 'function': different 'const' qualifiers
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(49,123): warning C4133: 'function': incompatible types - from 'STARTUPINFO *' to 'LPSTARTUPINFOA'
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(97,125): warning C4133: 'function': incompatible types - from 'STARTUPINFO *' to 'LPSTARTUPINFOA'
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(127,14): warning C4047: 'return': 'ULONG_PTR' differs in levels of indirection from 'void *'
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(157,41): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(157,47): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(147,1): warning C4047: 'initializing': 'NTSTATUS' differs in levels of indirection from 'void *'
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(370,130): warning C4047: '=': 'ULONG_PTR' differs in levels of indirection from 'LPVOID'
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(398,41): warning C4022: 'VirtualProtectEx': pointer mismatch for actual parameter 2
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(435,43): warning C4022: 'WriteProcessMemory': pointer mismatch for actual parameter 2
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(477,57): warning C4022: 'WriteProcessMemory': pointer mismatch for actual parameter 2
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(319,1): warning C4047: 'initializing': 'ULONG_PTR' differs in levels of indirection from 'void *'
+D:\Downloads\GithubMalware\IndirectChristmas\Christmas\Christmas\main.c(322,1): warning C4047: 'initializing': 'SIZE_T' differs in levels of indirection from 'void *'
+  Generating Code...
+  LINK : /LTCG specified but no code generation required; remove /LTCG from the link command line to improve linker performance
+  Christmas.vcxproj -> D:\Downloads\GithubMalware\IndirectChristmas\Christmas\x64\Release\Christmas.exe
