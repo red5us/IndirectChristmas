@@ -26,6 +26,8 @@
 #define NtProtectVirtualMemory_CRC32     0x5C2D1A97
 #define NtCreateThreadEx_CRC32   0x2073465A
 #define NtWaitForSingleObject_CRC32      0xDD554681
+#define NtWriteVirtualMemory_CRC32       0xE4879939
+#define NtOpenProcess_CRC32      0xDBF381B5
 
 #define LoadLibraryA_CRC32                      0x3FC1BD8D
 #define CreateThreadpoolTimer_CRC32             0xCC315CB0
@@ -74,6 +76,8 @@ typedef struct _NT_API {
     NT_SYSCALL  NtProtectVirtualMemory;
     NT_SYSCALL  NtCreateThreadEx;
     NT_SYSCALL  NtWaitForSingleObject;
+    NT_SYSCALL  NtWriteVirtualMemory;
+    NT_SYSCALL  NtOpenProcess;
 
     BOOL        bInit;
 

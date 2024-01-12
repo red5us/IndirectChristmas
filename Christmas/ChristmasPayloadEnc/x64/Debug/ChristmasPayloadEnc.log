@@ -1,0 +1,8 @@
+﻿  main.c
+D:\Downloads\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(29,1): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+D:\Downloads\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(30,1): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+D:\Downloads\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(102,41): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
+D:\Downloads\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(102,47): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
+D:\Downloads\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(92,1): warning C4047: 'initializing': 'NTSTATUS' differs in levels of indirection from 'void *'
+D:\Downloads\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(114,1): warning C4047: 'initializing': 'HCRYPTPROV' differs in levels of indirection from 'void *'
+  ChristmasPayloadEnc.vcxproj -> D:\Downloads\Github\IndirectChristmas\Christmas\x64\Debug\ChristmasPayloadEnc.exe

