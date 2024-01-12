@@ -1,12 +1,9 @@
-# Maldev Academy
+### Christmas with Indirect Syscalls
 
-[Maldev Academy Home](https://maldevacademy.com)
-
-[Maldev Academy Syllabus](https://maldevacademy.com/syllabus)
-
-### Christmas
 
 Implementing an injection method mentioned by [@Hexacorn](https://x.com/Hexacorn/status/1350437846398722049?s=20).
+
+This version of Christmas uses an indirect Syscalls method to avoid EDR/XDR Hooks.  
 
 This PoC creates multiple processes, where each process performs a specific task as part of the injection operation. Each child process will spawn another process and pass the required information via the command line.  The program follows the steps below:
 
@@ -20,9 +17,10 @@ The PoC uses the RC4 encryption algorithm to encrypt a Havoc Demon payload. The 
 
 </br>
 
-### Demo: Bypassing MDE using Havoc's Demon payload
+### References & Credits
 
-</br>
+https://github.com/Maldev-Academy/Christmas
+https://www.linkedin.com/in/danielabay/
+https://www.linkedin.com/in/lielb1/
 
-![image_2023-12-24_00-31-46](https://github.com/Maldev-Academy/Christmas/assets/111295429/b6af762e-5b76-44a5-834c-a148878a9505)
-![image_2023-12-24_00-31-24](https://github.com/Maldev-Academy/Christmas/assets/111295429/fe18b824-21be-4d1f-9bac-1ff798febedf)
+
