@@ -1,9 +1,9 @@
-### Christmas with Indirect Syscalls
 
+### Christmas with Indirect Syscalls
 
 Implementing an injection method mentioned by [@Hexacorn](https://x.com/Hexacorn/status/1350437846398722049?s=20).
 
-This version of Christmas uses an indirect Syscalls method to avoid EDR/XDR Hooks.  
+> This version of Christmas uses an indirect Syscalls method to avoid EDR/XDR Hooks.
 
 This PoC creates multiple processes, where each process performs a specific task as part of the injection operation. Each child process will spawn another process and pass the required information via the command line.  The program follows the steps below:
 
@@ -15,12 +15,10 @@ This PoC creates multiple processes, where each process performs a specific task
 
 The PoC uses the RC4 encryption algorithm to encrypt a Havoc Demon payload. The program, `ChristmasPayloadEnc.exe`, will be responsible for encrypting the payload, and padding it to be multiple of 1024 (as required by the injection logic).
 
-</br>
-
 ### References & Credits
 
 https://github.com/Maldev-Academy/Christmas
+
 https://www.linkedin.com/in/danielabay/
+
 https://www.linkedin.com/in/lielb1/
-
-
