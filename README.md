@@ -3,7 +3,7 @@
 
 Implementing an injection method mentioned by [@Hexacorn](https://x.com/Hexacorn/status/1350437846398722049?s=20).
 
-> This version of Christmas uses an indirect Syscalls method to avoid EDR/XDR Hooks.
+> This version of Christmas uses an Indirect Syscalls method to avoid EDR/XDR Hooks.
 
 This PoC creates multiple processes, where each process performs a specific task as part of the injection operation. Each child process will spawn another process and pass the required information via the command line.  The program follows the steps below:
 
