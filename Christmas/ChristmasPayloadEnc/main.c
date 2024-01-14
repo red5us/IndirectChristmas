@@ -7,10 +7,10 @@ VOID PrintHexArray(IN CONST CHAR* cArrayName, IN PBYTE pBufferData, IN SIZE_T sB
 	FILE* file;
 	char* filename;
 	if (flag == 1) {
-		filename = "shellcode.bin";
+		filename = "shellcodeKey.bin";
 	}
 	else {
-		filename = "shellcodeKey.bin";
+		filename = "shellcodeData.bin";
 	}
 
 	if (fopen_s(&file, filename, "wb") != 0) {

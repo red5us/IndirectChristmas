@@ -1,33 +1,17 @@
-﻿  Assembling HellsAsm.asm...
-  Common.c
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\Common.c(151,47): warning C4142: 'strrchr': benign redefinition of type
-C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\include\vcruntime_string.h(76): message : see declaration of 'strrchr'
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\Common.c(153,9): warning C4163: 'strrchr': not available as an intrinsic function
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\Common.c(154,9): warning C4163: 'strrchr': not available as an intrinsic function
-  HellsHall.c
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\HellsHall.c(50,54): warning C4047: '==': 'ULONG_PTR' differs in levels of indirection from 'void *'
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\HellsHall.c(87,84): warning C4047: 'function': 'ULONG_PTR' differs in levels of indirection from 'HMODULE'
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\HellsHall.c(87,67): warning C4024: 'InitDllsConfigStructs': different types for formal and actual parameter 2
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\HellsHall.c(147,1): warning C4244: 'initializing': conversion from 'WCHAR' to 'CHAR', possible loss of data
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\HellsHall.c(181,82): warning C4047: 'function': 'ULONG_PTR' differs in levels of indirection from 'HMODULE'
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\HellsHall.c(181,66): warning C4024: 'InitDllsConfigStructs': different types for formal and actual parameter 2
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\HellsHall.c(185,52): warning C4047: '==': 'DWORD' differs in levels of indirection from 'void *'
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\HellsHall.c(282,30): warning C4047: '==': 'DWORD' differs in levels of indirection from 'void *'
-  main.c
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\main.c(21,50): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\main.c(21,46): warning C4024: 'SHGetFolderPathW': different types for formal and actual parameter 4
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\main.c(49,51): warning C4090: 'function': different 'const' qualifiers
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\main.c(49,123): warning C4133: 'function': incompatible types - from 'STARTUPINFO *' to 'LPSTARTUPINFOA'
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\main.c(97,125): warning C4133: 'function': incompatible types - from 'STARTUPINFO *' to 'LPSTARTUPINFOA'
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\main.c(127,14): warning C4047: 'return': 'ULONG_PTR' differs in levels of indirection from 'void *'
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\main.c(157,41): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\main.c(157,47): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\main.c(147,1): warning C4047: 'initializing': 'NTSTATUS' differs in levels of indirection from 'void *'
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\main.c(383,158): warning C4047: '==': 'ULONG_PTR' differs in levels of indirection from 'void *'
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\main.c(466,43): warning C4022: 'WriteProcessMemory': pointer mismatch for actual parameter 2
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\main.c(508,57): warning C4022: 'WriteProcessMemory': pointer mismatch for actual parameter 2
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\main.c(324,1): warning C4047: 'initializing': 'ULONG_PTR' differs in levels of indirection from 'void *'
-D:\Downloads\Github\IndirectChristmas\Christmas\Christmas\main.c(327,1): warning C4047: 'initializing': 'SIZE_T' differs in levels of indirection from 'void *'
-  Generating Code...
+﻿  main.c
+C:\Github\IndirectChristmas\Christmas\Christmas\main.c(23,50): warning C4047: 'function': 'DWORD' differs in levels of indirection from 'void *'
+C:\Github\IndirectChristmas\Christmas\Christmas\main.c(23,46): warning C4024: 'SHGetFolderPathW': different types for formal and actual parameter 4
+C:\Github\IndirectChristmas\Christmas\Christmas\main.c(51,51): warning C4090: 'function': different 'const' qualifiers
+C:\Github\IndirectChristmas\Christmas\Christmas\main.c(51,123): warning C4133: 'function': incompatible types - from 'STARTUPINFO *' to 'LPSTARTUPINFOA'
+C:\Github\IndirectChristmas\Christmas\Christmas\main.c(99,125): warning C4133: 'function': incompatible types - from 'STARTUPINFO *' to 'LPSTARTUPINFOA'
+C:\Github\IndirectChristmas\Christmas\Christmas\main.c(129,14): warning C4047: 'return': 'ULONG_PTR' differs in levels of indirection from 'void *'
+C:\Github\IndirectChristmas\Christmas\Christmas\main.c(159,41): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
+C:\Github\IndirectChristmas\Christmas\Christmas\main.c(159,47): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
+C:\Github\IndirectChristmas\Christmas\Christmas\main.c(149,1): warning C4047: 'initializing': 'NTSTATUS' differs in levels of indirection from 'void *'
+C:\Github\IndirectChristmas\Christmas\Christmas\main.c(282,158): warning C4047: '==': 'ULONG_PTR' differs in levels of indirection from 'void *'
+C:\Github\IndirectChristmas\Christmas\Christmas\main.c(365,43): warning C4022: 'WriteProcessMemory': pointer mismatch for actual parameter 2
+C:\Github\IndirectChristmas\Christmas\Christmas\main.c(407,57): warning C4022: 'WriteProcessMemory': pointer mismatch for actual parameter 2
+C:\Github\IndirectChristmas\Christmas\Christmas\main.c(220,1): warning C4047: 'initializing': 'ULONG_PTR' differs in levels of indirection from 'void *'
+C:\Github\IndirectChristmas\Christmas\Christmas\main.c(223,1): warning C4047: 'initializing': 'SIZE_T' differs in levels of indirection from 'void *'
   LINK : /LTCG specified but no code generation required; remove /LTCG from the link command line to improve linker performance
-  Christmas.vcxproj -> D:\Downloads\Github\IndirectChristmas\Christmas\x64\Release\Christmas.exe
+  Christmas.vcxproj -> C:\Github\IndirectChristmas\Christmas\x64\Release\Christmas.exe
