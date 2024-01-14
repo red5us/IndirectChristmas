@@ -184,7 +184,9 @@ int main(int argc, char* argv[]) {
 
 	PrintHexArray("Rc4Key", pRc4Key, 0x10, 1);
 	printf("\n\n");
+	printf("[+] Generated Key");
 	PrintHexArray("Rc4EncData", pFileBuffer, NumberRoundUp1024(dwFileLength), 0);
+	printf("[+] Generated Shellcode");
 
 
 _CLEAN_UP:
