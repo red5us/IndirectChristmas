@@ -1,13 +1,13 @@
 ﻿  main.c
-C:\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(18,11): warning C4098: 'PrintHexArray': 'void' function returning a value
-C:\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(45,1): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
-C:\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(46,1): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
-C:\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(118,41): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
-C:\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(118,47): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
-C:\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(108,1): warning C4047: 'initializing': 'NTSTATUS' differs in levels of indirection from 'void *'
-C:\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(130,1): warning C4047: 'initializing': 'HCRYPTPROV' differs in levels of indirection from 'void *'
+D:\Downloads\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(18,11): warning C4098: 'PrintHexArray': 'void' function returning a value
+D:\Downloads\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(45,1): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+D:\Downloads\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(46,1): warning C4047: 'initializing': 'DWORD' differs in levels of indirection from 'void *'
+D:\Downloads\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(118,41): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
+D:\Downloads\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(118,47): warning C4133: 'function': incompatible types - from 'USTRING *' to 'USTRING *'
+D:\Downloads\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(108,1): warning C4047: 'initializing': 'NTSTATUS' differs in levels of indirection from 'void *'
+D:\Downloads\Github\IndirectChristmas\Christmas\ChristmasPayloadEnc\main.c(130,1): warning C4047: 'initializing': 'HCRYPTPROV' differs in levels of indirection from 'void *'
   Generating code
   Previous IPDB not found, fall back to full compilation.
   All 9 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
-  ChristmasPayloadEnc.vcxproj -> C:\Github\IndirectChristmas\Christmas\x64\Release\ChristmasPayloadEnc.exe
+  ChristmasPayloadEnc.vcxproj -> D:\Downloads\Github\IndirectChristmas\Christmas\x64\Release\ChristmasPayloadEnc.exe
